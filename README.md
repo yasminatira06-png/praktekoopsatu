@@ -1,5 +1,5 @@
 ---
-title: Praktek OOP
+title: praktekoopsatu
 emoji: 👀
 colorFrom: blue
 colorTo: green
