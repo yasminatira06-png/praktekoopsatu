@@ -1,28 +1,38 @@
 <?php
-// index.php
-$nama = "Jasmine!";
-$waktu = date("Y-m-d H:i:s");
-?>
+require __DIR__ . "/core/Autoloader.php";
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Website PHP di Hugging Face</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-        .container { max-width: 600px; margin: 0 auto; }
-        .box { background: #FF998A; padding: 20px; border-radius: 10px; margin-top: 20px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Selamat Datang di Website PHP!</h1>
-        <p>Halo <strong><?= htmlspecialchars($nama) ?></strong></p>
-        <div class="box">
-            <p>Waktu server: <code><?= $waktu ?></code></p>
-            <p>Dijalankan di <strong>Docker</strong> di Hugging Face Spaces ✅</p>
-        </div>
-    </div>
-</body>
-</html>
+use Models\Bunga;
+use Models\Aksesoris;
+use Models\toko;
+use Models\Pelanggan;
+
+// buat objek
+$toko = new toko();
+$bunga1 = new Bunga("Mawar", 50000);
+$bunga2 = new Bunga("Tulip", 70000);
+$vas = new Aksesoris("Vas Cantik", 30000);
+
+// tambahkan ke toko
+$toko->tambahProduk($bunga1);
+$toko->tambahProduk($bunga2);
+$toko->tambahProduk($vas);
+
+// pelanggan
+$pelanggan = new Pelanggan("Yasmin");
+
+// tampilkan produk
+echo "\nDaftar Produk:\n";
+foreach ($toko as $p) {
+    echo $p->info() . "\n";
+}
+
+echo "Pelanggan: " . $pelanggan->getNama() . "\n";
+
+// Serialization
+echo "\nSerialization:\n";
+echo serialize($bunga1) . "\n";
+
+// Reflection
+echo "\nReflection:\n";
+$ref = new \ReflectionClass(Bunga::class);
+print_r($ref->getProperties());
